@@ -77,6 +77,14 @@ repositories {
             includeGroup("thaumcraft")
         }
     }
+
+    maven("https://api.modrinth.com/maven") {
+        name = "Modrinth"
+    }
+
+    maven("https://jcenter.bintray.com") {
+        name = "JCenter"
+    }
 }
 
 dependencies {
@@ -117,8 +125,55 @@ dependencies {
     implementation("com.github.GTNewHorizons:Avaritia:$avaritiaVersion:dev")
 
     val gregTech5Version: String by project
-    implementation("com.github.GTNewHorizons:GT5-Unofficial:$gregTech5Version:dev")
-
+    implementation("com.github.GTNewHorizons:GT5-Unofficial:$gregTech5Version:dev") {
+        isTransitive = true
+    }
+    // The following are compile-time dependencies of GT5.
+    val industrialCraft2Version: String by project
+    compileOnly("net.industrial-craft:industrialcraft-2:$industrialCraft2Version-experimental:api") {
+        isTransitive = true
+    }
+    val forestryVersion: String by project
+    compileOnly("com.github.GTNewHorizons:ForestryMC:$forestryVersion:api") {
+        isTransitive = true
+    }
+    val railcraftVersion: String by project
+    compileOnly("com.github.GTNewHorizons:Railcraft:$railcraftVersion:api") {
+        isTransitive = true
+    }
+    val buildCraftVersion: String by project
+    compileOnly("com.github.GTNewHorizons:BuildCraft:$buildCraftVersion:api") {
+        isTransitive = true
+    }
+    val enderIoVersion: String by project
+    compileOnly("com.github.GTNewHorizons:EnderIO:$enderIoVersion:api") {
+        isTransitive = true
+    }
+    val projectRedVersion: String by project
+    compileOnly("com.github.GTNewHorizons:ProjectRed:$projectRedVersion:dev") {
+        isTransitive = true
+    }
+//    compileOnly("com.github.GTNewHorizons:bartworks:0.9.14:dev") {
+//        isTransitive = true
+//    }
+//    compileOnly("com.github.GTNewHorizons:GoodGenerator:0.8.12:dev") {
+//        isTransitive = true
+//    }
+    compileOnly("com.github.GTNewHorizons:GTNH-Intergalactic:1.4.30") {
+        isTransitive = true
+    }
+//    compileOnly("com.github.GTNewHorizons:GTplusplus:1.11.33:dev") {
+//        isTransitive = true
+//    }
+//    compileOnly("com.github.GTNewHorizons:GTNH-Lanthanides:0.12.11:dev") {
+//        isTransitive = true
+//    }
+//    compileOnly("com.github.GTNewHorizons:TecTech:5.3.32:dev") {
+//        isTransitive = true
+//    }
+    compileOnly("com.github.GTNewHorizons:ModularUI:1.2.17") {
+        isTransitive = true
+    }
     val thaumcraftVersion: String by project
     implementation("thaumcraft:Thaumcraft:$minecraftVersion-$thaumcraftVersion:dev")
     val thaumcraftNeiVersion: String by project
