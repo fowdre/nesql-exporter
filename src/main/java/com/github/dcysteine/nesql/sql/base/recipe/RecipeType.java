@@ -2,16 +2,13 @@ package com.github.dcysteine.nesql.sql.base.recipe;
 
 import com.github.dcysteine.nesql.sql.Identifiable;
 import com.github.dcysteine.nesql.sql.base.item.Item;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Comparator;
+import java.util.Set;
 
 /** Contains information about a type of recipe. */
 @Entity
@@ -38,8 +35,8 @@ public class RecipeType implements Identifiable<String> {
     @Column(nullable = false)
     private String type;
 
-    @ManyToOne
-    private Item icon;
+    @ElementCollection
+    private Set<Item> icon;
 
     /** Additional info to show on the icon. */
     @Column(nullable = false)
@@ -67,7 +64,7 @@ public class RecipeType implements Identifiable<String> {
      * make sure that their combination is unique!
      */
     public RecipeType(
-            String id, String category, String type, Item icon, String iconInfo, boolean shapeless,
+            String id, String category, String type, Set<Item> icon, String iconInfo, boolean shapeless,
             Dimension itemInputDimension, Dimension fluidInputDimension,
             Dimension itemOutputDimension, Dimension fluidOutputDimension) {
         this.id = id;

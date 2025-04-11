@@ -23,14 +23,14 @@ public class GregTechRecipeMap {
     /** Used for IDs. */
     private final String shortName;
     private final String name;
-    private final ItemStack icon;
+    private final ItemStack[] icon;
     private final boolean shapeless;
     private final Dimension itemInputDimension;
     private final Dimension fluidInputDimension;
     private final Dimension itemOutputDimension;
     private final Dimension fluidOutputDimension;
     GregTechRecipeMap(
-            gregtech.api.recipe.RecipeMap<? extends RecipeMapBackend> recipeMap, String shortName, ItemStack icon, boolean shapeless,
+            gregtech.api.recipe.RecipeMap<? extends RecipeMapBackend> recipeMap, String shortName, ItemStack[] icon, boolean shapeless,
             Dimension itemInputDimension, Dimension fluidInputDimension,
             Dimension itemOutputDimension, Dimension fluidOutputDimension) {
         this.recipeMap = recipeMap;
@@ -45,7 +45,7 @@ public class GregTechRecipeMap {
     }
     public static void makeGTRecipe(){
         for(gregtech.api.recipe.RecipeMap<?> oriGTRecipeMap:gregtech.api.recipe.RecipeMap.ALL_RECIPE_MAPS.values()){
-            List<ItemStack> catalysts=getRecipeCatalysts(oriGTRecipeMap.unlocalizedName).stream().map(var->var.item).collect(Collectors.toList());
+            List<ItemStack[]> catalysts=getRecipeCatalysts(oriGTRecipeMap.unlocalizedName).stream().map(var->var.items).collect(Collectors.toList());
             if(catalysts.isEmpty())continue;
             GregTechRecipeMap gregTechRecipeMap =new GregTechRecipeMap(
                     oriGTRecipeMap,
@@ -97,7 +97,7 @@ public class GregTechRecipeMap {
         return String.format("%s (%s)", name, voltage.getName());
     }
 
-    public ItemStack getIcon() {
+    public ItemStack[] getIcon() {
         return icon;
     }
 

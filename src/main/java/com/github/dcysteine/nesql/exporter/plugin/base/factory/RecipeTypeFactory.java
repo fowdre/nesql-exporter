@@ -9,7 +9,9 @@ import com.github.dcysteine.nesql.sql.base.recipe.Dimension;
 import com.github.dcysteine.nesql.sql.base.recipe.RecipeType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
     public RecipeTypeFactory(PluginExporter exporter) {
@@ -18,7 +20,7 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
 
     /** {@code idParts} will be joined with {@link IdUtil#ID_SEPARATOR} to form the ID. */
     public RecipeType get(
-            String[] idParts, String category, String type, Item icon, String iconInfo,
+            String[] idParts, String category, String type, Set<Item> icon, String iconInfo,
             boolean shapeless,
             Dimension itemInputDimension, Dimension fluidInputDimension,
             Dimension itemOutputDimension, Dimension fluidOutputDimension) {
@@ -39,7 +41,7 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
         private String[] idParts = null;
         private String category = null;
         private String type = null;
-        private Item icon = null;
+        private Set<Item> icon = null;
         private String iconInfo = "";
         private Boolean shapeless = false;
         private Dimension itemInputDimension = new Dimension(0, 0);
@@ -64,8 +66,14 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
             return this;
         }
 
-        public Builder setIcon(Item icon) {
+        public Builder setIcon(Set<Item> icon) {
             this.icon = icon;
+            return this;
+        }
+
+        public Builder setIcon(Item icon) {
+            this.icon = new HashSet<>();
+            this.icon.add(icon);
             return this;
         }
 
