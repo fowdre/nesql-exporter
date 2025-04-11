@@ -31,7 +31,7 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
     }
 
     public GregTechRecipe get(
-            Recipe recipe, GTRecipeMap GregTechRecipeMap, GTRecipe gregTechRecipe,
+            Recipe recipe, GregTechRecipeMap GregTechRecipeMap, GTRecipe gregTechRecipe,
             Voltage voltageTier, int voltage, List<ItemStack> specialItems) {
         String id = IdPrefixUtil.GREG_TECH_RECIPE.applyPrefix(recipe.getId());
 
