@@ -37,19 +37,19 @@ public class PluginRegistry {
                 RegistryEntry.create(
                         Plugin.MOBS_INFO, MobsInfoPluginExporter::new, ModDependency.MOBS_INFO));
 
-        /*builder.add(
+        builder.add(
                 RegistryEntry.create(
                         Plugin.AVARITIA, AvaritiaPluginExporter::new, ModDependency.AVARITIA));
         builder.add(
                 RegistryEntry.create(
-                        Plugin.GREGTECH, GregTechPluginExporter::new, ModDependency.GREGTECH_5));*/
+                        Plugin.GREGTECH, GregTechPluginExporter::new, ModDependency.GREGTECH_5));
         builder.add(
                 RegistryEntry.create(
                         Plugin.THAUMCRAFT, ThaumcraftPluginExporter::new,
                         ModDependency.THAUMCRAFT, ModDependency.THAUMCRAFT_NEI));
-        /*builder.add(
+        builder.add(
                 RegistryEntry.create(
-                        Plugin.QUEST, QuestPluginExporter::new, ModDependency.BETTER_QUESTING));*/
+                        Plugin.QUEST, QuestPluginExporter::new, ModDependency.BETTER_QUESTING));
 
         entries = builder.build();
     }

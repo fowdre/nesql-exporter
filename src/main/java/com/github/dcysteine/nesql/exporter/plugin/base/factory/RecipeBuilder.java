@@ -28,10 +28,10 @@ public class RecipeBuilder extends PluginHelper {
     private final Map<Integer, FluidGroup> fluidInputs;
     private final Map<Integer, ItemStackWithProbability> itemOutputs;
     private final Map<Integer, FluidStackWithProbability> fluidOutputs;
-    private int itemInputsIndex;
-    private int fluidInputsIndex;
-    private int itemOutputsIndex;
-    private int fluidOutputsIndex;
+    public int itemInputsIndex;
+    public int fluidInputsIndex;
+    public int itemOutputsIndex;
+    public int fluidOutputsIndex;
 
     public RecipeBuilder(PluginExporter exporter, RecipeType recipeType) {
         super(exporter);
@@ -88,10 +88,6 @@ public class RecipeBuilder extends PluginHelper {
     }
 
     public RecipeBuilder skipItemInput() {
-        if (recipeType.isShapeless()) {
-            logger.warn("Skipping item input index for shapeless recipe!");
-        }
-
         itemInputsIndex++;
         return this;
     }

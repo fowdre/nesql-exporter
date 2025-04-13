@@ -25,6 +25,11 @@ public final class ItemUtil {
                 .map(item -> new ItemStack(Item.getItemFromBlock(block), 1));
     }
 
+    public static Optional<ItemStack> getItemStack(Block block, int damage) {
+        return Optional.ofNullable(Item.getItemFromBlock(block))
+                .map(item -> new ItemStack(Item.getItemFromBlock(block), 1, damage));
+    }
+
     public static Optional<ItemStack> getItemStack(Fluid fluid) {
         return Optional.ofNullable(fluid.getBlock()).flatMap(ItemUtil::getItemStack);
     }

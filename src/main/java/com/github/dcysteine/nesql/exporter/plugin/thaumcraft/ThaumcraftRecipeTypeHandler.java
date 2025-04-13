@@ -37,9 +37,9 @@ public class ThaumcraftRecipeTypeHandler extends PluginHelper {
         ItemFactory itemFactory = new ItemFactory(exporter);
         RecipeTypeFactory recipeTypeFactory = new RecipeTypeFactory(exporter);
 
-        Item craftingTable = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockTable).get());
-        Item furnace = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockAlchemyFurnace).get());
-        Item matrix = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockMetalDevice).get());
+        Item craftingTable = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockTable, 15).get());
+        Item crucible = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockMetalDevice, 0).get());
+        Item matrix = itemFactory.get(ItemUtil.getItemStack(ConfigBlocks.blockStoneDevice, 2).get());
 
 
         recipeTypeMap.put(
@@ -50,7 +50,7 @@ public class ThaumcraftRecipeTypeHandler extends PluginHelper {
                         .setType("Magical Crafting (Shaped)")
                         .setIcon(craftingTable)
                         .setShapeless(false)
-                        .setItemInputDimension(3, 3)
+                        .setItemInputDimension(3, 5)
                         .setItemOutputDimension(1, 1)
                         .build());
 
@@ -62,7 +62,7 @@ public class ThaumcraftRecipeTypeHandler extends PluginHelper {
                         .setType("Magical Crafting (Shapeless)")
                         .setIcon(craftingTable)
                         .setShapeless(true)
-                        .setItemInputDimension(3, 3)
+                        .setItemInputDimension(3, 5)
                         .setItemOutputDimension(1, 1)
                         .build());
 
@@ -72,9 +72,9 @@ public class ThaumcraftRecipeTypeHandler extends PluginHelper {
                         .setId(RECIPE_ID, "alchemy")
                         .setCategory(RECIPE_CATEGORY)
                         .setType("Crucible")
-                        .setIcon(furnace)
+                        .setIcon(crucible)
                         .setShapeless(true)
-                        .setItemInputDimension(1, 1)
+                        .setItemInputDimension(3, 3)
                         .setItemOutputDimension(1, 1)
                         .build());
 
@@ -86,7 +86,7 @@ public class ThaumcraftRecipeTypeHandler extends PluginHelper {
                         .setType("Arcane Infusion")
                         .setIcon(matrix)
                         .setShapeless(true)
-                        .setItemInputDimension(5, 5)
+                        .setItemInputDimension(5, 7)
                         .setItemOutputDimension(1, 1)
                         .build());
     }
