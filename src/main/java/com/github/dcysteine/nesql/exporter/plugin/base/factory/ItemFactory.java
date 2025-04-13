@@ -57,7 +57,6 @@ public class ItemFactory extends EntityFactory<Item, String> {
             String tooltip =
                     ((List<String>) itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, true))
                             .stream()
-                            .map(StringUtil::stripFormatting)
                             .collect(Collectors.joining("\n"));
 
             item = new Item(
@@ -66,7 +65,7 @@ public class ItemFactory extends EntityFactory<Item, String> {
                     modId,
                     internalName,
                     itemStack.getUnlocalizedName(),
-                    StringUtil.stripFormatting(itemStack.getDisplayName()),
+                    itemStack.getDisplayName(),
                     ItemUtil.getItemId(itemStack),
                     itemDamage,
                     nbt,

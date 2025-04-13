@@ -47,7 +47,7 @@ public class FluidFactory extends EntityFactory<Fluid, String> {
                 modId,
                 internalName,
                 fluidStack.getUnlocalizedName(),
-                StringUtil.stripFormatting(fluidStack.getLocalizedName()),
+                fluidStack.getLocalizedName(),
                 fluidStack.getFluidID(),
                 nbt,
                 fluidStack.getFluid().getLuminosity(fluidStack),

@@ -20,7 +20,7 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
 
     /** {@code idParts} will be joined with {@link IdUtil#ID_SEPARATOR} to form the ID. */
     public RecipeType get(
-            String[] idParts, String category, String type, Set<Item> icon, String iconInfo,
+            String[] idParts, String category, String type, List<Item> icon, String iconInfo,
             boolean shapeless,
             Dimension itemInputDimension, Dimension fluidInputDimension,
             Dimension itemOutputDimension, Dimension fluidOutputDimension) {
@@ -41,7 +41,7 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
         private String[] idParts = null;
         private String category = null;
         private String type = null;
-        private Set<Item> icon = null;
+        private List<Item> icon = null;
         private String iconInfo = "";
         private Boolean shapeless = false;
         private Dimension itemInputDimension = new Dimension(0, 0);
@@ -66,13 +66,13 @@ public class RecipeTypeFactory extends EntityFactory<RecipeType, String> {
             return this;
         }
 
-        public Builder setIcon(Set<Item> icon) {
+        public Builder setIcon(List<Item> icon) {
             this.icon = icon;
             return this;
         }
 
         public Builder setIcon(Item icon) {
-            this.icon = new HashSet<>();
+            this.icon = new ArrayList<Item>();
             this.icon.add(icon);
             return this;
         }

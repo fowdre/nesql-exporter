@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 /** Contains information about a type of recipe. */
@@ -35,8 +36,8 @@ public class RecipeType implements Identifiable<String> {
     @Column(nullable = false)
     private String type;
 
-    @ElementCollection
-    private Set<Item> icon;
+    @ManyToMany
+    private List<Item> icon;
 
     /** Additional info to show on the icon. */
     @Column(nullable = false)
@@ -64,7 +65,7 @@ public class RecipeType implements Identifiable<String> {
      * make sure that their combination is unique!
      */
     public RecipeType(
-            String id, String category, String type, Set<Item> icon, String iconInfo, boolean shapeless,
+            String id, String category, String type, List<Item> icon, String iconInfo, boolean shapeless,
             Dimension itemInputDimension, Dimension fluidInputDimension,
             Dimension itemOutputDimension, Dimension fluidOutputDimension) {
         this.id = id;

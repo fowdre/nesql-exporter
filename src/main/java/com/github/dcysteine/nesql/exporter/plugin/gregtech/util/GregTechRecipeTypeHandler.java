@@ -10,6 +10,7 @@ import com.google.common.collect.ArrayTable;
 import com.google.common.collect.Table;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,7 @@ public class GregTechRecipeTypeHandler extends PluginHelper {
 
         for (GregTechRecipeMap GregTechRecipeMap : GregTechRecipeMap.allNEIRecipeMaps.values()) {
             GregTechRecipeMap.getIcon();
-            Set<Item> icon = Arrays.stream(GregTechRecipeMap.getIcon()).map(x -> itemFactory.get(x)).collect(Collectors.toSet());
+            List<Item> icon = GregTechRecipeMap.getIcon().stream().map(x -> itemFactory.get(x)).collect(Collectors.toList());
             for (Voltage voltage : Voltage.values()) {
                 recipeTypeTable.put(
                         GregTechRecipeMap, voltage,
