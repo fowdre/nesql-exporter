@@ -45,7 +45,7 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
                         .map(itemFactory::get)
                         .collect(Collectors.toCollection(ArrayList::new));
 
-        List<String> modOwners =
+        List<String> modOwners = gregTechRecipe.owners == null ? new ArrayList<>() :
                 gregTechRecipe.owners.stream()
                         .map(ModContainer::getModId)
                         .collect(Collectors.toCollection(ArrayList::new));
