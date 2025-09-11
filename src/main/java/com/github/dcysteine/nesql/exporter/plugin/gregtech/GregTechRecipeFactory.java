@@ -50,6 +50,7 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
                         .map(ModContainer::getModId)
                         .collect(Collectors.toCollection(ArrayList::new));
 
+        int recipeSpecialValue = gregTechRecipe.mSpecialValue;
         List<String> additionalInfo = new ArrayList<>();
         switch (GregTechRecipeMap.getShortName()) {
             case "gt.recipe.fusionreactor": {
@@ -120,6 +121,7 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
                         voltage,
                         GregTechRecipeMap.getAmperage(),
                         gregTechRecipe.mDuration,
+                        recipeSpecialValue,
                         requiresCleanroom,
                         requiresLowGravity,
                         specialItemEntities,

@@ -44,6 +44,8 @@ public class GregTechRecipe implements Identifiable<String> {
 
     private int duration;
 
+    private int recipeSpecialValue;
+
     private boolean requiresCleanroom;
 
     private boolean requiresLowGravity;
@@ -68,6 +70,7 @@ public class GregTechRecipe implements Identifiable<String> {
             int voltage,
             int amperage,
             int duration,
+            int recipeSpecialValue,
             boolean requiresCleanroom,
             boolean requiresLowGravity,
             List<Item> specialItems,
@@ -79,6 +82,7 @@ public class GregTechRecipe implements Identifiable<String> {
         this.voltage = voltage;
         this.amperage = amperage;
         this.duration = duration;
+        this.recipeSpecialValue = recipeSpecialValue;
         this.requiresCleanroom = requiresCleanroom;
         this.requiresLowGravity = requiresLowGravity;
         this.specialItems = specialItems;
