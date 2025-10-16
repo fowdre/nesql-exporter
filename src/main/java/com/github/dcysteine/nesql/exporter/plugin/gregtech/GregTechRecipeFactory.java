@@ -10,16 +10,24 @@ import com.github.dcysteine.nesql.exporter.util.NumberUtil;
 import com.github.dcysteine.nesql.sql.base.item.Item;
 import com.github.dcysteine.nesql.sql.base.recipe.Recipe;
 import com.github.dcysteine.nesql.sql.gregtech.GregTechRecipe;
+import com.github.dcysteine.nesql.sql.gregtech.GregTechRecipeMetadata;
+import com.github.dcysteine.nesql.sql.quest.QuestLineEntry;
 import com.google.common.base.Joiner;
 import cpw.mods.fml.common.ModContainer;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTRecipeConstants;
+import jakarta.persistence.ElementCollection;
+import lombok.SneakyThrows;
 import net.minecraft.item.ItemStack;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String> {
@@ -30,6 +38,7 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
         this.itemFactory = new ItemFactory(exporter);
     }
 
+    @SneakyThrows
     public GregTechRecipe get(
             Recipe recipe, GregTechRecipeMap GregTechRecipeMap, GTRecipe gregTechRecipe,
             Voltage voltageTier, int voltage, List<ItemStack> specialItems) {
@@ -55,7 +64,8 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
         switch (GregTechRecipeMap.getShortName()) {
             case "gt.recipe.fusionreactor": {
                 // Special handling for fusion recipes.
-                int euToStart = gregTechRecipe.mSpecialValue;
+                long euToStart = gregTechRecipe.getMetadataOrDefault(GTRecipeConstants.FUSION_THRESHOLD, 0L);
+                recipeSpecialValue = (int)euToStart;
 
                 int euTier;
                 if (euToStart <= 160_000_000) {
@@ -113,6 +123,26 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
             additionalInfo.addAll(Arrays.asList(gregTechRecipe.getNeiDesc()));
         }
 
+
+        Class<?> clazz = RecipeMetadataKey.class;
+        Field idField = clazz.getDeclaredField("identifier");
+        idField.setAccessible(true);
+
+        var metadata = new ArrayList<GregTechRecipeMetadata>();
+        for (var meta: gregTechRecipe.getMetadataStorage().getEntries()) {
+            var value = meta.getValue();
+            long exportValue;
+            if (value instanceof Number)
+                exportValue = ((Number)value).longValue();
+            else if (value instanceof Boolean)
+                exportValue = (Boolean) value ? 1 : 0;
+            else continue;
+
+            var key = idField.get(meta.getKey());
+            if (key instanceof String)
+                metadata.add(new GregTechRecipeMetadata((String)key, exportValue));
+        }
+
         GregTechRecipe gregTechRecipeEntity =
                 new GregTechRecipe(
                         id,
@@ -126,7 +156,8 @@ public class GregTechRecipeFactory extends EntityFactory<GregTechRecipe, String>
                         requiresLowGravity,
                         specialItemEntities,
                         modOwners,
-                        Joiner.on('\n').join(additionalInfo));
+                        Joiner.on('\n').join(additionalInfo), metadata);
+
         return findOrPersist(GregTechRecipe.class, gregTechRecipeEntity);
     }
 }

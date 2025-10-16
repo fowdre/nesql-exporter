@@ -4,6 +4,7 @@ import com.github.dcysteine.nesql.sql.Identifiable;
 import com.github.dcysteine.nesql.sql.Metadata;
 import com.github.dcysteine.nesql.sql.base.item.Item;
 import com.github.dcysteine.nesql.sql.base.recipe.Recipe;
+import com.github.dcysteine.nesql.sql.quest.QuestLineEntry;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import lombok.ToString;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Additional GregTech data associated with a recipe.
@@ -60,6 +62,9 @@ public class GregTechRecipe implements Identifiable<String> {
     @Column(length = Metadata.MAX_STRING_LENGTH, nullable = false)
     private String additionalInfo;
 
+    @ElementCollection
+    private List<GregTechRecipeMetadata> metadata;
+
     /** Needed by Hibernate. */
     protected GregTechRecipe() {}
 
@@ -75,7 +80,8 @@ public class GregTechRecipe implements Identifiable<String> {
             boolean requiresLowGravity,
             List<Item> specialItems,
             List<String> modOwners,
-            String additionalInfo) {
+            String additionalInfo,
+            List<GregTechRecipeMetadata> metadata) {
         this.id = id;
         this.recipe = recipe;
         this.voltageTier = voltageTier;
@@ -88,6 +94,7 @@ public class GregTechRecipe implements Identifiable<String> {
         this.specialItems = specialItems;
         this.modOwners = modOwners;
         this.additionalInfo = additionalInfo;
+        this.metadata = metadata;
     }
 
     @Override
