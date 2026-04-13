@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,10 +55,8 @@ public class ItemFactory extends EntityFactory<Item, String> {
 
         try {
             @SuppressWarnings("unchecked")
-            String tooltip =
-                    ((List<String>) itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, true))
-                            .stream()
-                            .collect(Collectors.joining("\n"));
+            List<String> tooltip =
+                    new ArrayList<>(((List<String>) itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, true)));
 
             item = new Item(
                     id,
@@ -90,7 +89,7 @@ public class ItemFactory extends EntityFactory<Item, String> {
                     ItemUtil.getItemId(itemStack),
                     itemDamage,
                     nbt,
-                    stackTrace,
+                    new ArrayList<>(),
                     itemStack.getMaxStackSize(),
                     itemStack.getMaxDamage(),
                     new HashMap<>());

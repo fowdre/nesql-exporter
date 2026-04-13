@@ -2,15 +2,13 @@ package com.github.dcysteine.nesql.sql.base.item;
 
 import com.github.dcysteine.nesql.sql.Identifiable;
 import com.github.dcysteine.nesql.sql.Metadata;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -49,8 +47,9 @@ public class Item implements Identifiable<String> {
     @Column(length = Metadata.MAX_STRING_LENGTH, nullable = false)
     private String nbt;
 
-    @Column(length = Metadata.MAX_STRING_LENGTH, nullable = false)
-    private String tooltip;
+    @ElementCollection
+    @OrderColumn
+    private List<String> tooltip;
 
     private int maxStackSize;
 
@@ -73,7 +72,7 @@ public class Item implements Identifiable<String> {
             int itemId,
             int itemDamage,
             String nbt,
-            String tooltip,
+            List<String> tooltip,
             int maxStackSize,
             int maxDamage,
             Map<String, Integer> toolClasses) {
